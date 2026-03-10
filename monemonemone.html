@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 23rd Birthday! 🎂</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0015;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+        }
+
+        /* ========== LOADING SCREEN WITH BLOOMING FLOWER ========== */
+        #loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1a0030, #0a0015);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease;
+        }
+        #loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #loader p {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #ffb6c1;
+            margin-top: 30px;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        /* Blooming Flower CSS */
+        .flower-container {
+            position: relative;
+            width: 120px; height: 120px;
+        }
+        .petal {
+            position: absolute;
+            width: 40px; height: 60px;
+            background: #ff69b4;
+            border-radius: 50% 50% 50% 50%;
+            top: 50%; left: 50%;
+            transform-origin: bottom center;
+            opacity: 0;
+            animation: bloom 2s ease forwards;
+        }
+        .petal:nth-child(1) { transform: translate(-50%, -100%) rotate(0deg); animation-delay: 0.2s; }
+        .petal:nth-child(2) { transform: translate(-50%, -100%) rotate(45deg); animation-delay: 0.4s; }
+        .petal:nth-child(3) { transform: translate(-50%, -100%) rotate(90deg); animation-delay: 0.6s; }
+        .petal:nth-child(4) { transform: translate(-50%, -100%) rotate(135deg); animation-delay: 0.8s; }
+        .petal:nth-child(5) { transform: translate(-50%, -100%) rotate(180deg); animation-delay: 1.0s; }
+        .petal:nth-child(6) { transform: translate(-50%, -100%) rotate(225deg); animation-delay: 1.2s; }
+        .petal:nth-child(7) { transform: translate(-50%, -100%) rotate(270deg); animation-delay: 1.4s; }
+        .petal:nth-child(8) { transform: translate(-50%, -100%) rotate(315deg); animation-delay: 1.6s; }
+        .flower-center {
+            position: absolute;
+            width: 30px; height: 30px;
+            background: #ffdf00;
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: popIn 0.5s ease forwards;
+            animation-delay: 1.8s;
+            z-index: 2;
+        }
+
+        @keyframes bloom {
+            0% { opacity: 0; transform: translate(-50%, -100%) rotate(var(--r, 0deg)) scale(0); }
+            100% { opacity: 1; transform: translate(-50%, -100%) rotate(var(--r, 0deg)) scale(1); }
+        }
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* ========== FIREWORKS CANVAS ========== */
+        #fireworks-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ========== HEARTS FLOODING ========== */
+        .hearts-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 20px;
+            animation: floatUp linear forwards;
+            opacity: 0.8;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(720deg) scale(0.3); opacity: 0; }
+        }
+
+        /* ========== FALLING PETALS (NEW!) ========== */
+        .falling-petal {
+            position: fixed;
+            top: -60px;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0.85;
+            animation: petalFall linear forwards;
+        }
+        @keyframes petalFall {
+            0% { transform: translateX(0) rotate(0deg); opacity: 0.9; }
+            25% { transform: translateX(30px) rotate(90deg); }
+            50% { transform: translateX(-20px) rotate(180deg); opacity: 0.8; }
+            75% { transform: translateX(40px) rotate(270deg); }
+            100% { transform: translateX(-10px) translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ========== SPARKLE PARTICLES ========== */
+        .sparkle {
+            position: fixed;
+            width: 6px; height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 3;
+            animation: sparkleAnim 1.5s ease forwards;
+        }
+        @keyframes sparkleAnim {
+            0% { transform: scale(0); opacity: 1; }
+            50% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .content {
+            position: relative;
+            z-index: 5;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        .hero h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            background: linear-gradient(90deg, #ff69b4, #ffdf00, #ff69b4);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite, fadeInUp 1.5s ease;
+        }
+        .hero .age {
+            font-size: 8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: bounceIn 1s ease 0.5s both;
+        }
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: #ffb6c1;
+            margin-top: 10px;
+            font-weight: 300;
+            animation: fadeInUp 1.5s ease 1s both;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { transform: scale(1.1); }
+            70% { transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* ========== HERO SIDE FLOWERS (NEW!) ========== */
+        .hero-flower {
+            position: absolute;
+            z-index: 0;
+            opacity: 0;
+            animation: heroFlowerBloom 2s ease forwards;
+        }
+        .hero-flower svg {
+            filter: drop-shadow(0 0 15px rgba(255,105,180,0.5));
+        }
+        @keyframes heroFlowerBloom {
+            0% { opacity: 0; transform: scale(0) rotate(-30deg); }
+            60% { opacity: 1; transform: scale(1.1) rotate(5deg); }
+            100% { opacity: 0.9; transform: scale(1) rotate(0deg); }
+        }
+
+        /* ========== GROWING FLOWER STEMS (NEW!) ========== */
+        .flower-stem-section {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+        .stem-flower {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .stem-line {
+            width: 4px;
+            height: 0;
+            background: linear-gradient(to top, #228B22, #32CD32);
+            border-radius: 2px;
+            animation: growStem 2s ease forwards;
+            transform-origin: bottom;
+        }
+        .stem-leaf {
+            position: absolute;
+            bottom: 40px;
+            width: 25px;
+            height: 15px;
+            background: #32CD32;
+            border-radius: 50% 0;
+            opacity: 0;
+            animation: leafGrow 0.5s ease forwards;
+        }
+        .stem-leaf.left { right: 15px; transform: rotate(-30deg); }
+        .stem-leaf.right { left: 15px; transform: rotate(30deg); }
+        .stem-bloom {
+            font-size: 2.5rem;
+            opacity: 0;
+            transform: scale(0);
+            animation: bloomPop 0.8s ease forwards;
+        }
+        @keyframes growStem {
+            0% { height: 0; }
+            100% { height: 100px; }
+        }
+        @keyframes leafGrow {
+            0% { opacity: 0; transform: scale(0) rotate(-30deg); }
+            100% { opacity: 1; transform: scale(1) rotate(-30deg); }
+        }
+        @keyframes bloomPop {
+            0% { opacity: 0; transform: scale(0) rotate(-20deg); }
+            70% { transform: scale(1.3) rotate(5deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        /* ========== FLOWER DIVIDER (NEW!) ========== */
+        .flower-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 40px 0;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .flower-divider.visible { opacity: 1; }
+        .flower-divider .line {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff69b4, transparent);
+        }
+        .flower-divider .flowers {
+            font-size: 1.5rem;
+            animation: gentleBounce 2s ease infinite;
+        }
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* ========== FLOWER GARDEN FOOTER (NEW!) ========== */
+        .flower-garden {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 0;
+            padding: 0 20px;
+        }
+        .garden-flower {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: gardenGrow 1.5s ease forwards;
+            opacity: 0;
+            transform-origin: bottom;
+        }
+        .garden-flower .bloom { font-size: 2rem; }
+        .garden-flower .gstem {
+            width: 3px;
+            background: linear-gradient(to top, #228B22, #32CD32);
+            border-radius: 2px;
+        }
+        @keyframes gardenGrow {
+            0% { opacity: 0; transform: scaleY(0); }
+            70% { transform: scaleY(1.1); }
+            100% { opacity: 1; transform: scaleY(1); }
+        }
+
+        /* ========== BLOOMING ROSE ANIMATION (NEW!) ========== */
+        .blooming-rose-container {
+            display: flex;
+            justify-content: center;
+            padding: 30px 0;
+        }
+        .blooming-rose {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+        .rose-petal {
+            position: absolute;
+            width: 30px;
+            height: 45px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            opacity: 0;
+            animation: rosePetalBloom 1.5s ease forwards;
+        }
+        .rose-petal.layer1 { background: #ff1493; }
+        .rose-petal.layer2 { background: #ff69b4; width: 25px; height: 38px; }
+        .rose-petal.layer3 { background: #ffb6c1; width: 20px; height: 30px; }
+        @keyframes rosePetalBloom {
+            0% { opacity: 0; transform: translate(-50%, -100%) rotate(var(--r)) scale(0); }
+            100% { opacity: 1; transform: translate(-50%, -100%) rotate(var(--r)) scale(1); }
+        }
+        .rose-center {
+            position: absolute;
+            width: 18px; height: 18px;
+            background: radial-gradient(circle, #ff006a, #cc0055);
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: popIn 0.5s ease forwards;
+            z-index: 5;
+        }
+
+        /* ========== PHOTO GALLERY ========== */
+        .gallery-section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .gallery-section h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #ff69b4;
+            margin-bottom: 50px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .gallery-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,105,180,0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            opacity: 0;
+            transform: translateY(60px);
+        }
+        .gallery-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .gallery-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 60px rgba(255,105,180,0.3);
+        }
+        .gallery-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+        .gallery-card .caption {
+            padding: 20px;
+            font-size: 0.95rem;
+            color: #ffb6c1;
+            font-style: italic;
+        }
+
+        /* ========== LOVE LETTER SECTION ========== */
+        .letter-section {
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .letter {
+            background: linear-gradient(135deg, rgba(255,105,180,0.1), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255,105,180,0.3);
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1s ease;
+        }
+        .letter.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .letter h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #ff69b4;
+            margin-bottom: 25px;
+        }
+        .letter p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #e0c8d8;
+            font-weight: 300;
+        }
+        .letter .signature {
+            margin-top: 30px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #ff69b4;
+        }
+
+        /* ========== WISHES SECTION ========== */
+        .wishes-section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .wishes-section h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #ff69b4;
+            margin-bottom: 40px;
+        }
+        .wishes-list {
+            max-width: 600px;
+            margin: 0 auto;
+            list-style: none;
+        }
+        .wishes-list li {
+            font-size: 1.15rem;
+            padding: 15px 0;
+            color: #e0c8d8;
+            border-bottom: 1px solid rgba(255,105,180,0.15);
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 0.6s ease;
+        }
+        .wishes-list li.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .wishes-list li::before {
+            content: '💖 ';
+        }
+
+        /* ========== MUSIC BUTTON ========== */
+        .music-btn {
+            position: fixed;
+            bottom: 25px; right: 25px;
+            z-index: 999;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border: none;
+            width: 55px; height: 55px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255,105,180,0.5);
+            transition: transform 0.3s;
+            color: #fff;
+        }
+        .music-btn:hover { transform: scale(1.15); }
+
+        /* ========== CONFETTI BURST ========== */
+        .confetti {
+            position: fixed;
+            width: 10px; height: 10px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #ff69b4;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .age { font-size: 5rem; }
+            .letter { padding: 30px 20px; }
+            .hero-flower svg { width: 60px !important; height: 60px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <div id="loader">
+        <div class="flower-container">
+            <div class="petal" style="--r:0deg"></div>
+            <div class="petal" style="--r:45deg"></div>
+            <div class="petal" style="--r:90deg"></div>
+            <div class="petal" style="--r:135deg"></div>
+            <div class="petal" style="--r:180deg"></div>
+            <div class="petal" style="--r:225deg"></div>
+            <div class="petal" style="--r:270deg"></div>
+            <div class="petal" style="--r:315deg"></div>
+            <div class="flower-center"></div>
+        </div>
+        <p>Preparing something special for you... 🌸</p>
+    </div>
+
+    <!-- ===== FIREWORKS CANVAS ===== -->
+    <canvas id="fireworks-canvas"></canvas>
+
+    <!-- ===== FLOATING HEARTS ===== -->
+    <div class="hearts-container" id="hearts-container"></div>
+
+    <!-- ===== FALLING PETALS CONTAINER ===== -->
+    <div id="petals-container"></div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="content">
+
+        <!-- HERO -->
+        <section class="hero">
+            <!-- Left Flowers -->
+            <div class="hero-flower" style="top: 15%; left: 5%; animation-delay: 0.5s;">
+                <svg width="90" height="90" viewBox="0 0 100 100">
+                    <circle cx="50" cy="30" r="18" fill="#ff69b4" opacity="0.9"/>
+                    <circle cx="30" cy="45" r="18" fill="#ff85c2" opacity="0.85"/>
+                    <circle cx="70" cy="45" r="18" fill="#ff85c2" opacity="0.85"/>
+                    <circle cx="35" cy="65" r="18" fill="#ff69b4" opacity="0.9"/>
+                    <circle cx="65" cy="65" r="18" fill="#ff69b4" opacity="0.9"/>
+                    <circle cx="50" cy="50" r="12" fill="#ffdf00"/>
+                </svg>
+            </div>
+            <div class="hero-flower" style="top: 60%; left: 3%; animation-delay: 1.2s;">
+                <svg width="70" height="70" viewBox="0 0 100 100">
+                    <circle cx="50" cy="30" r="18" fill="#da70d6" opacity="0.9"/>
+                    <circle cx="30" cy="45" r="18" fill="#e88de8" opacity="0.85"/>
+                    <circle cx="70" cy="45" r="18" fill="#e88de8" opacity="0.85"/>
+                    <circle cx="35" cy="65" r="18" fill="#da70d6" opacity="0.9"/>
+                    <circle cx="65" cy="65" r="18" fill="#da70d6" opacity="0.9"/>
+                    <circle cx="50" cy="50" r="12" fill="#fff176"/>
+                </svg>
+            </div>
+            <!-- Right Flowers -->
+            <div class="hero-flower" style="top: 10%; right: 5%; left: auto; animation-delay: 0.8s;">
+                <svg width="80" height="80" viewBox="0 0 100 100">
+                    <circle cx="50" cy="30" r="18" fill="#ff1493" opacity="0.9"/>
+                    <circle cx="30" cy="45" r="18" fill="#ff5ca8" opacity="0.85"/>
+                    <circle cx="70" cy="45" r="18" fill="#ff5ca8" opacity="0.85"/>
+                    <circle cx="35" cy="65" r="18" fill="#ff1493" opacity="0.9"/>
+                    <circle cx="65" cy="65" r="18" fill="#ff1493" opacity="0.9"/>
+                    <circle cx="50" cy="50" r="12" fill="#ffdf00"/>
+                </svg>
+            </div>
+            <div class="hero-flower" style="top: 55%; right: 4%; left: auto; animation-delay: 1.5s;">
+                <svg width="65" height="65" viewBox="0 0 100 100">
+                    <circle cx="50" cy="30" r="18" fill="#f48fb1" opacity="0.9"/>
+                    <circle cx="30" cy="45" r="18" fill="#f8bbd0" opacity="0.85"/>
+                    <circle cx="70" cy="45" r="18" fill="#f8bbd0" opacity="0.85"/>
+                    <circle cx="35" cy="65" r="18" fill="#f48fb1" opacity="0.9"/>
+                    <circle cx="65" cy="65" r="18" fill="#f48fb1" opacity="0.9"/>
+                    <circle cx="50" cy="50" r="12" fill="#fff9c4"/>
+                </svg>
+            </div>
+            <!-- Bottom corner flowers -->
+            <div class="hero-flower" style="bottom: 8%; left: 10%; top: auto; animation-delay: 1.8s;">
+                <svg width="75" height="75" viewBox="0 0 100 100">
+                    <circle cx="50" cy="30" r="18" fill="#e91e63" opacity="0.9"/>
+                    <circle cx="30" cy="45" r="18" fill="#f06292" opacity="0.85"/>
+                    <circle cx="70" cy="45" r="18" fill="#f06292" opacity="0.85"/>
+                    <circle cx="35" cy="65" r="18" fill="#e91e63" opacity="0.9"/>
+                    <circle cx="65" cy="65" r="18" fill="#e91e63" opacity="0.9"/>
+                    <circle cx="50" cy="50" r="12" fill="#ffe082"/>
+                </svg>
+            </div>
+            <div class="hero-flower" style="bottom: 8%; right: 10%; left: auto; top: auto; animation-delay: 2s;">
+                <svg width="75" height="75" viewBox="0 0 100 100">
+                    <circle cx="50" cy="30" r="18" fill="#ce93d8" opacity="0.9"/>
+                    <circle cx="30" cy="45" r="18" fill="#e1bee7" opacity="0.85"/>
+                    <circle cx="70" cy="45" r="18" fill="#e1bee7" opacity="0.85"/>
+                    <circle cx="35" cy="65" r="18" fill="#ce93d8" opacity="0.9"/>
+                    <circle cx="65" cy="65" r="18" fill="#ce93d8" opacity="0.9"/>
+                    <circle cx="50" cy="50" r="12" fill="#fff9c4"/>
+                </svg>
+            </div>
+
+            <h1>Happy Birthday, Chit sone ly!</h1>
+            <div class="age">23</div>
+            <p class="subtitle">De nae ka koh koh chit thu birthday hehe 💕</p>
+        </section>
+
+        <!-- 🌹 GROWING FLOWER STEMS -->
+        <div class="flower-stem-section" id="stemSection">
+            <!-- Flowers injected by JS -->
+        </div>
+
+        <!-- 🌸 FLOWER DIVIDER -->
+        <div class="flower-divider" id="divider1">
+            <div class="line"></div>
+            <span class="flowers">🌷</span>
+            <span class="flowers" style="animation-delay:0.3s">🌹</span>
+            <span class="flowers" style="animation-delay:0.5s">🌸</span>
+            <span class="flowers" style="animation-delay:0.7s">🌺</span>
+            <span class="flowers" style="animation-delay:0.9s">🌷</span>
+            <div class="line"></div>
+        </div>
+
+        <!-- GALLERY -->
+        <section class="gallery-section">
+            <h2>✨ Our Beautiful Memories ✨</h2>
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <img src="C:\Users\User\OneDrive\Desktop\1flower.jpg" alt="1st ever flower">
+                    <div class="caption">"The first flower that i ever give you :3 💖"</div>
+                </div>
+                <div class="gallery-card">
+                    <img src="C:\Users\User\OneDrive\Desktop\2flower.jpg" alt="Small but pretty flower">
+                    <div class="caption">"The prettiest flower that i have given you 💖 "</div>
+                </div>
+                <div class="gallery-card">
+                    <img src="C:\Users\User\OneDrive\Desktop\supote.jpg" alt="Su pote ly">
+                    <div class="caption">"Ark lo su pote nay tr ly ko pl chit mi twr tr :/"</div>
+                </div>
+                <div class="gallery-card">
+                    <img src="C:\Users\User\OneDrive\Desktop\cutie.jpg" alt="Cuite">
+                    <div class="caption">"Dr ly ka tot koh koh yae gf num 2 cute girl ly pr byar :>"</div>
+                </div>
+                <div class="gallery-card">
+                    <img src="C:\Users\User\OneDrive\Desktop\baddie.jpg" alt="Baddie girl">
+                    <div class="caption">"My one and only baddie girl "</div>
+                </div>
+                <div class="gallery-card">
+                    <img src="C:\Users\User\OneDrive\Desktop\ourpic.jpg" alt="A yan lite pat dae couple ly naw :3">
+                    <div class="caption">"Like lite dae couple ly pr byar"</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🌸 FLOWER DIVIDER 2 -->
+        <div class="flower-divider" id="divider2">
+            <div class="line"></div>
+            <span class="flowers">🌻</span>
+            <span class="flowers" style="animation-delay:0.3s">🌹</span>
+            <span class="flowers" style="animation-delay:0.5s">💐</span>
+            <span class="flowers" style="animation-delay:0.7s">🌸</span>
+            <span class="flowers" style="animation-delay:0.9s">🌻</span>
+            <div class="line"></div>
+        </div>
+
+        <!-- 🌹 BLOOMING ROSE (between sections) -->
+        <div class="blooming-rose-container" id="roseSection">
+            <div class="blooming-rose" id="rose1"></div>
+        </div>
+
+        <!-- LOVE LETTER -->
+        <section class="letter-section">
+            <div class="letter">
+                <h2>💌Happy 23rd Birthday Mone</h2>
+                <p>
+                   A yan chit ya taw kg ma ly byar,<br><br>
+                    I am sorry i cant be there with you physically :< but i always there with you meantally 
+                    and within 2 week we are going to Bkk and having time of our life<br><br>
+                    Kalay ly i am trully proud of you kalay ly i know that whatever the problem or obstacle i know that you can only come it 
+                    and i will alwasy got your back even when you dont need me i will always push you up no matter what <br>
+                    A yan a yan chit pr tl byar. A lu birthday ka sa pi Kalay ly sate chan tr ko chan tr lo chin dae san da twy arr lone pyae pr say byar <br>
+                    koh koh kalay ly nae ma kwel chin buu tagal pr byar a yan chit pr tl byar Mwah Mwah Mwah 
+
+                </p>
+                <div class="signature">Forever yours, Sai Paing 💕</div>
+            </div>
+        </section>
+
+        <!-- 🌸 FLOWER DIVIDER 3 -->
+        <div class="flower-divider" id="divider3">
+            <div class="line"></div>
+            <span class="flowers">🌸</span>
+            <span class="flowers" style="animation-delay:0.2s">🌺</span>
+            <span class="flowers" style="animation-delay:0.4s">🌷</span>
+            <span class="flowers" style="animation-delay:0.6s">🌺</span>
+            <span class="flowers" style="animation-delay:0.8s">🌸</span>
+            <div class="line"></div>
+        </div>
+
+        <!-- BIRTHDAY WISHES -->
+        <section class="wishes-section">
+            <h2>🎂 23 Wishes For You 🎂</h2>
+            <ul class="wishes-list">
+                <li>Endless laughter and joy every single day</li>
+                <li>All your dreams coming true this year</li>
+                <li>Adventures that take your breath away</li>
+                <li>Love that grows deeper with every heartbeat</li>
+                <li>Health, happiness, and peace of mind</li>
+                <li>Surprise moments that make you smile</li>
+                <li>The courage to chase every dream fearlessly</li>
+                <li>Warm hugs on cold days (from me, obviously 😄)</li>
+                <li>A year as beautiful and radiant as you are</li>
+                <li>All the cake and sweets your heart desires 🍰</li>
+            </ul>
+        </section>
+
+        <!-- 🌻 FLOWER GARDEN AT BOTTOM -->
+        <div class="flower-garden" id="flowerGarden"></div>
+
+        <footer>Made with all my love, by Your one and only 💖</footer>
+    </div>
+
+    <!-- ===== MUSIC BUTTON ===== -->
+    <button class="music-btn" id="musicBtn" title="Play Music">🎵</button>
+    <audio id="bgMusic" loop>
+        <source src="https://youtu.be/PXrejr_SK9U?list=RDPXrejr_SK9U" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // ========== LOADER ==========
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                startFireworks();
+                startHearts();
+                startFallingPetals();
+                burstConfetti();
+                growStemFlowers();
+                buildFlowerGarden();
+                buildBloomingRose();
+            }, 3500);
+        });
+
+        // ========== FIREWORKS ==========
+        const canvas = document.getElementById('fireworks-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        let fireworksArr = [];
+        let particlesArr = [];
+
+        class Firework {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.targetY = Math.random() * canvas.height * 0.4 + 50;
+                this.speed = 3 + Math.random() * 3;
+                this.color = `hsl(${Math.random() * 60 + 320}, 100%, 65%)`;
+                this.alive = true;
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y <= this.targetY) { this.explode(); this.alive = false; }
+            }
+            explode() {
+                for (let i = 0; i < 80; i++) particlesArr.push(new Particle(this.x, this.y, this.color));
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 5 + 1;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.alpha = 1;
+                this.color = color;
+                this.decay = 0.01 + Math.random() * 0.02;
+            }
+            update() { this.x += this.vx; this.y += this.vy; this.vy += 0.04; this.alpha -= this.decay; }
+            draw() {
+                ctx.save(); ctx.globalAlpha = this.alpha;
+                ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = this.color; ctx.fill(); ctx.restore();
+            }
+        }
+
+        function animateFireworks() {
+            ctx.fillStyle = 'rgba(10, 0, 21, 0.15)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            if (Math.random() < 0.04) fireworksArr.push(new Firework());
+            fireworksArr.forEach((f, i) => { f.update(); f.draw(); if (!f.alive) fireworksArr.splice(i, 1); });
+            particlesArr.forEach((p, i) => { p.update(); p.draw(); if (p.alpha <= 0) particlesArr.splice(i, 1); });
+            requestAnimationFrame(animateFireworks);
+        }
+        function startFireworks() { animateFireworks(); }
+
+        // ========== FLOATING HEARTS ==========
+        const heartsContainer = document.getElementById('hearts-container');
+        const heartEmojis = ['❤️', '💖', '💕', '💗', '💓', '🩷', '🌸', '✨', '💐', '🌹', '🌷'];
+        function createHeart() {
+            const heart = document.createElement('span');
+            heart.classList.add('heart');
+            heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (15 + Math.random() * 25) + 'px';
+            heart.style.animationDuration = (4 + Math.random() * 6) + 's';
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
+        }
+        function startHearts() { setInterval(createHeart, 300); }
+
+        // ========== FALLING FLOWER PETALS (NEW!) ==========
+        const petalsContainer = document.getElementById('petals-container');
+        const petalSVGs = [
+            `<svg width="25" height="25" viewBox="0 0 50 50"><ellipse cx="25" cy="20" rx="12" ry="18" fill="#ff69b4" opacity="0.7" transform="rotate(15 25 25)"/></svg>`,
+            `<svg width="20" height="20" viewBox="0 0 50 50"><ellipse cx="25" cy="20" rx="10" ry="16" fill="#ffb6c1" opacity="0.6" transform="rotate(-10 25 25)"/></svg>`,
+            `<svg width="22" height="22" viewBox="0 0 50 50"><ellipse cx="25" cy="20" rx="11" ry="17" fill="#f48fb1" opacity="0.65" transform="rotate(20 25 25)"/></svg>`,
+            `<svg width="18" height="18" viewBox="0 0 50 50"><ellipse cx="25" cy="20" rx="10" ry="15" fill="#f8bbd0" opacity="0.6"/></svg>`,
+            `<svg width="24" height="24" viewBox="0 0 50 50"><ellipse cx="25" cy="20" rx="12" ry="17" fill="#e91e63" opacity="0.5" transform="rotate(-15 25 25)"/></svg>`
+        ];
+
+        function createFallingPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('falling-petal');
+            petal.innerHTML = petalSVGs[Math.floor(Math.random() * petalSVGs.length)];
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = (6 + Math.random() * 8) + 's';
+            petal.style.opacity = 0.4 + Math.random() * 0.5;
+            petalsContainer.appendChild(petal);
+            setTimeout(() => petal.remove(), 15000);
+        }
+        function startFallingPetals() { setInterval(createFallingPetal, 500); }
+
+        // ========== GROWING STEM FLOWERS (NEW!) ==========
+        function growStemFlowers() {
+            const section = document.getElementById('stemSection');
+            const flowerEmojis = ['🌹', '🌷', '🌸', '🌺', '🌻', '💮', '🏵️', '🌼'];
+            for (let i = 0; i < 8; i++) {
+                const stemFlower = document.createElement('div');
+                stemFlower.classList.add('stem-flower');
+                const bloom = document.createElement('div');
+                bloom.classList.add('stem-bloom');
+                bloom.textContent = flowerEmojis[i % flowerEmojis.length];
+                bloom.style.animationDelay = (1.5 + i * 0.3) + 's';
+                const stem = document.createElement('div');
+                stem.classList.add('stem-line');
+                stem.style.animationDelay = (i * 0.3) + 's';
+                const leafL = document.createElement('div');
+                leafL.classList.add('stem-leaf', 'left');
+                leafL.style.animationDelay = (0.8 + i * 0.3) + 's';
+                const leafR = document.createElement('div');
+                leafR.classList.add('stem-leaf', 'right');
+                leafR.style.animationDelay = (1.0 + i * 0.3) + 's';
+
+                stemFlower.appendChild(bloom);
+                stemFlower.appendChild(stem);
+                stemFlower.appendChild(leafL);
+                stemFlower.appendChild(leafR);
+                section.appendChild(stemFlower);
+            }
+        }
+
+        // ========== BLOOMING ROSE (NEW!) ==========
+        function buildBloomingRose() {
+            const rose = document.getElementById('rose1');
+            const layers = [
+                { count: 8, cls: 'layer1', delay: 0.5 },
+                { count: 6, cls: 'layer2', delay: 1.5 },
+                { count: 5, cls: 'layer3', delay: 2.3 }
+            ];
+            layers.forEach(layer => {
+                for (let i = 0; i < layer.count; i++) {
+                    const p = document.createElement('div');
+                    p.classList.add('rose-petal', layer.cls);
+                    const angle = (360 / layer.count) * i;
+                    p.style.setProperty('--r', angle + 'deg');
+                    p.style.animationDelay = (layer.delay + i * 0.15) + 's';
+                    rose.appendChild(p);
+                }
+            });
+            const center = document.createElement('div');
+            center.classList.add('rose-center');
+            center.style.animationDelay = '3.5s';
+            rose.appendChild(center);
+        }
+
+        // ========== FLOWER GARDEN (NEW!) ==========
+        function buildFlowerGarden() {
+            const garden = document.getElementById('flowerGarden');
+            const flowers = ['🌹', '🌷', '🌸', '🌺', '🌻', '🌼', '💐', '🌹', '🌷', '🌸', '🌺', '🌻', '🌼', '🌹', '🌷', '🌸', '🌺', '🌻', '🌼', '💐', '🌹', '🌷', '🌸'];
+            flowers.forEach((f, i) => {
+                const wrapper = document.createElement('div');
+                wrapper.classList.add('garden-flower');
+                wrapper.style.animationDelay = (i * 0.15) + 's';
+
+                const bloom = document.createElement('div');
+                bloom.classList.add('bloom');
+                bloom.textContent = f;
+
+                const stem = document.createElement('div');
+                stem.classList.add('gstem');
+                stem.style.height = (40 + Math.random() * 60) + 'px';
+
+                wrapper.appendChild(bloom);
+                wrapper.appendChild(stem);
+                garden.appendChild(wrapper);
+            });
+        }
+
+        // ========== CONFETTI BURST ==========
+        function burstConfetti() {
+            const colors = ['#ff69b4', '#ffdf00', '#ff1493', '#fff', '#ff85c2', '#ffd700'];
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-10px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                    confetti.style.width = (6 + Math.random() * 8) + 'px';
+                    confetti.style.height = (6 + Math.random() * 8) + 'px';
+                    confetti.style.animationDuration = (2 + Math.random() * 3) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 20);
+            }
+        }
+
+        // ========== SCROLL ANIMATIONS ==========
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.gallery-card, .letter, .wishes-list li, .flower-divider').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ========== SPARKLE ON MOUSE MOVE ==========
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.85) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                sparkle.style.background = `hsl(${Math.random() * 60 + 320}, 100%, 75%)`;
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1500);
+            }
+        });
+
+        // ========== MUSIC TOGGLE ==========
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        let playing = false;
+        musicBtn.addEventListener('click', () => {
+            if (playing) { bgMusic.pause(); musicBtn.textContent = '🎵'; }
+            else { bgMusic.play(); musicBtn.textContent = '🔇'; }
+            playing = !playing;
+        });
+    </script>
+</body>
+</html>
