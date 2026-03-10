@@ -50,7 +50,7 @@
             position: absolute;
             width: 40px; height: 60px;
             background: #ff69b4;
-            border-radius: 50% 50% 50% 50%;
+            border-radius: 50%;
             top: 50%; left: 50%;
             transform-origin: bottom center;
             opacity: 0;
@@ -116,7 +116,7 @@
             100% { transform: translateY(-110vh) rotate(720deg) scale(0.3); opacity: 0; }
         }
 
-        /* ========== FALLING PETALS (NEW!) ========== */
+        /* ========== FALLING PETALS ========== */
         .falling-petal {
             position: fixed;
             top: -60px;
@@ -206,7 +206,7 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        /* ========== HERO SIDE FLOWERS (NEW!) ========== */
+        /* ========== HERO SIDE FLOWERS ========== */
         .hero-flower {
             position: absolute;
             z-index: 0;
@@ -222,7 +222,7 @@
             100% { opacity: 0.9; transform: scale(1) rotate(0deg); }
         }
 
-        /* ========== GROWING FLOWER STEMS (NEW!) ========== */
+        /* ========== GROWING FLOWER STEMS ========== */
         .flower-stem-section {
             display: flex;
             justify-content: center;
@@ -276,7 +276,7 @@
             100% { opacity: 1; transform: scale(1) rotate(0deg); }
         }
 
-        /* ========== FLOWER DIVIDER (NEW!) ========== */
+        /* ========== FLOWER DIVIDER ========== */
         .flower-divider {
             display: flex;
             align-items: center;
@@ -301,7 +301,7 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* ========== FLOWER GARDEN FOOTER (NEW!) ========== */
+        /* ========== FLOWER GARDEN FOOTER ========== */
         .flower-garden {
             position: relative;
             height: 200px;
@@ -332,7 +332,7 @@
             100% { opacity: 1; transform: scaleY(1); }
         }
 
-        /* ========== BLOOMING ROSE ANIMATION (NEW!) ========== */
+        /* ========== BLOOMING ROSE ANIMATION ========== */
         .blooming-rose-container {
             display: flex;
             justify-content: center;
@@ -511,6 +511,41 @@
         }
         .music-btn:hover { transform: scale(1.15); }
 
+        /* ========== YOUTUBE PLAYER ========== */
+        #ytPlayerWrap {
+            position: fixed;
+            bottom: 90px;
+            right: 15px;
+            z-index: 999;
+            width: 280px;
+            height: 158px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(255,105,180,0.4);
+            border: 2px solid rgba(255,105,180,0.5);
+            display: none;
+            background: #000;
+        }
+        #ytPlayerWrap.show {
+            display: block;
+            animation: fadeInUp 0.4s ease;
+        }
+        #ytPlayerWrap .close-yt {
+            position: absolute;
+            top: 5px; right: 8px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 24px; height: 24px;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         /* ========== CONFETTI BURST ========== */
         .confetti {
             position: fixed;
@@ -539,6 +574,8 @@
             .hero .age { font-size: 5rem; }
             .letter { padding: 30px 20px; }
             .hero-flower svg { width: 60px !important; height: 60px !important; }
+            #ytPlayerWrap { width: 220px; height: 124px; right: 10px; bottom: 85px; }
+            #ytPlayerWrap iframe { width: 220px; height: 124px; }
         }
     </style>
 </head>
@@ -644,9 +681,7 @@
         </section>
 
         <!-- 🌹 GROWING FLOWER STEMS -->
-        <div class="flower-stem-section" id="stemSection">
-            <!-- Flowers injected by JS -->
-        </div>
+        <div class="flower-stem-section" id="stemSection"></div>
 
         <!-- 🌸 FLOWER DIVIDER -->
         <div class="flower-divider" id="divider1">
@@ -663,28 +698,33 @@
         <section class="gallery-section">
             <h2>✨ Our Beautiful Memories ✨</h2>
             <div class="gallery-grid">
+                <!--
+                    ⚠️ IMPORTANT: Replace these with your actual image file names!
+                    Put your photos in the SAME FOLDER as this index.html file,
+                    then use just the file name like: src="1flower.jpg"
+                -->
                 <div class="gallery-card">
-                    <img src="C:\Users\User\OneDrive\Desktop\1flower.jpg" alt="1st ever flower">
+                    <img src="1flower.jpg" alt="1st ever flower">
                     <div class="caption">"The first flower that i ever give you :3 💖"</div>
                 </div>
                 <div class="gallery-card">
-                    <img src="C:\Users\User\OneDrive\Desktop\2flower.jpg" alt="Small but pretty flower">
-                    <div class="caption">"The prettiest flower that i have given you 💖 "</div>
+                    <img src="2flower.jpg" alt="Small but pretty flower">
+                    <div class="caption">"The prettiest flower that i have given you 💖"</div>
                 </div>
                 <div class="gallery-card">
-                    <img src="C:\Users\User\OneDrive\Desktop\supote.jpg" alt="Su pote ly">
+                    <img src="supote.jpg" alt="Su pote ly">
                     <div class="caption">"Ark lo su pote nay tr ly ko pl chit mi twr tr :/"</div>
                 </div>
                 <div class="gallery-card">
-                    <img src="C:\Users\User\OneDrive\Desktop\cutie.jpg" alt="Cuite">
+                    <img src="cutie.jpg" alt="Cutie">
                     <div class="caption">"Dr ly ka tot koh koh yae gf num 2 cute girl ly pr byar :>"</div>
                 </div>
                 <div class="gallery-card">
-                    <img src="C:\Users\User\OneDrive\Desktop\baddie.jpg" alt="Baddie girl">
-                    <div class="caption">"My one and only baddie girl "</div>
+                    <img src="baddie.jpg" alt="Baddie girl">
+                    <div class="caption">"My one and only baddie girl"</div>
                 </div>
                 <div class="gallery-card">
-                    <img src="C:\Users\User\OneDrive\Desktop\ourpic.jpg" alt="A yan lite pat dae couple ly naw :3">
+                    <img src="ourpic.jpg" alt="A yan lite pat dae couple ly naw :3">
                     <div class="caption">"Like lite dae couple ly pr byar"</div>
                 </div>
             </div>
@@ -701,7 +741,7 @@
             <div class="line"></div>
         </div>
 
-        <!-- 🌹 BLOOMING ROSE (between sections) -->
+        <!-- 🌹 BLOOMING ROSE -->
         <div class="blooming-rose-container" id="roseSection">
             <div class="blooming-rose" id="rose1"></div>
         </div>
@@ -709,16 +749,15 @@
         <!-- LOVE LETTER -->
         <section class="letter-section">
             <div class="letter">
-                <h2>💌Happy 23rd Birthday Mone</h2>
+                <h2>💌 Happy 23rd Birthday Mone</h2>
                 <p>
-                   A yan chit ya taw kg ma ly byar,<br><br>
-                    I am sorry i cant be there with you physically :< but i always there with you meantally 
+                    A yan chit ya taw kg ma ly byar,<br><br>
+                    I am sorry i cant be there with you physically :< but i always there with you mentally
                     and within 2 week we are going to Bkk and having time of our life<br><br>
-                    Kalay ly i am trully proud of you kalay ly i know that whatever the problem or obstacle i know that you can only come it 
-                    and i will alwasy got your back even when you dont need me i will always push you up no matter what <br>
-                    A yan a yan chit pr tl byar. A lu birthday ka sa pi Kalay ly sate chan tr ko chan tr lo chin dae san da twy arr lone pyae pr say byar <br>
-                    koh koh kalay ly nae ma kwel chin buu tagal pr byar a yan chit pr tl byar Mwah Mwah Mwah 
-
+                    Kalay ly i am trully proud of you kalay ly i know that whatever the problem or obstacle i know that you can only come it
+                    and i will always got your back even when you dont need me i will always push you up no matter what<br><br>
+                    A yan a yan chit pr tl byar. A lu birthday ka sa pi Kalay ly sate chan tr ko chan tr lo chin dae san da twy arr lone pyae pr say byar<br><br>
+                    koh koh kalay ly nae ma kwel chin buu tagal pr byar a yan chit pr tl byar Mwah Mwah Mwah
                 </p>
                 <div class="signature">Forever yours, Sai Paing 💕</div>
             </div>
@@ -758,11 +797,21 @@
         <footer>Made with all my love, by Your one and only 💖</footer>
     </div>
 
-    <!-- ===== MUSIC BUTTON ===== -->
+    <!-- ===== MUSIC BUTTON + YOUTUBE PLAYER ===== -->
     <button class="music-btn" id="musicBtn" title="Play Music">🎵</button>
-    <audio id="bgMusic" loop>
-        <source src="https://youtu.be/PXrejr_SK9U?list=RDPXrejr_SK9U" type="audio/mpeg">
-    </audio>
+
+    <div id="ytPlayerWrap">
+        <button class="close-yt" id="closeYt">✕</button>
+        <iframe
+            id="ytPlayer"
+            width="280"
+            height="158"
+            src="https://www.youtube.com/embed/PXrejr_SK9U?enablejsapi=1&loop=1&playlist=PXrejr_SK9U&autoplay=0"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+        </iframe>
+    </div>
 
     <script>
         // ========== LOADER ==========
@@ -860,7 +909,7 @@
         }
         function startHearts() { setInterval(createHeart, 300); }
 
-        // ========== FALLING FLOWER PETALS (NEW!) ==========
+        // ========== FALLING FLOWER PETALS ==========
         const petalsContainer = document.getElementById('petals-container');
         const petalSVGs = [
             `<svg width="25" height="25" viewBox="0 0 50 50"><ellipse cx="25" cy="20" rx="12" ry="18" fill="#ff69b4" opacity="0.7" transform="rotate(15 25 25)"/></svg>`,
@@ -869,7 +918,6 @@
             `<svg width="18" height="18" viewBox="0 0 50 50"><ellipse cx="25" cy="20" rx="10" ry="15" fill="#f8bbd0" opacity="0.6"/></svg>`,
             `<svg width="24" height="24" viewBox="0 0 50 50"><ellipse cx="25" cy="20" rx="12" ry="17" fill="#e91e63" opacity="0.5" transform="rotate(-15 25 25)"/></svg>`
         ];
-
         function createFallingPetal() {
             const petal = document.createElement('div');
             petal.classList.add('falling-petal');
@@ -882,7 +930,7 @@
         }
         function startFallingPetals() { setInterval(createFallingPetal, 500); }
 
-        // ========== GROWING STEM FLOWERS (NEW!) ==========
+        // ========== GROWING STEM FLOWERS ==========
         function growStemFlowers() {
             const section = document.getElementById('stemSection');
             const flowerEmojis = ['🌹', '🌷', '🌸', '🌺', '🌻', '💮', '🏵️', '🌼'];
@@ -911,7 +959,7 @@
             }
         }
 
-        // ========== BLOOMING ROSE (NEW!) ==========
+        // ========== BLOOMING ROSE ==========
         function buildBloomingRose() {
             const rose = document.getElementById('rose1');
             const layers = [
@@ -935,10 +983,10 @@
             rose.appendChild(center);
         }
 
-        // ========== FLOWER GARDEN (NEW!) ==========
+        // ========== FLOWER GARDEN ==========
         function buildFlowerGarden() {
             const garden = document.getElementById('flowerGarden');
-            const flowers = ['🌹', '🌷', '🌸', '🌺', '🌻', '🌼', '💐', '🌹', '🌷', '🌸', '🌺', '🌻', '🌼', '🌹', '🌷', '🌸', '🌺', '🌻', '🌼', '💐', '🌹', '🌷', '🌸'];
+            const flowers = ['🌹','🌷','🌸','🌺','🌻','🌼','💐','🌹','🌷','🌸','🌺','🌻','🌼','🌹','🌷','🌸','🌺','🌻','🌼','💐','🌹','🌷','🌸'];
             flowers.forEach((f, i) => {
                 const wrapper = document.createElement('div');
                 wrapper.classList.add('garden-flower');
@@ -1002,15 +1050,29 @@
             }
         });
 
-        // ========== MUSIC TOGGLE ==========
+        // ========== MUSIC TOGGLE (YouTube) ==========
         const musicBtn = document.getElementById('musicBtn');
-        const bgMusic = document.getElementById('bgMusic');
-        let playing = false;
+        const ytWrap = document.getElementById('ytPlayerWrap');
+        const closeYt = document.getElementById('closeYt');
+        let musicVisible = false;
+
         musicBtn.addEventListener('click', () => {
-            if (playing) { bgMusic.pause(); musicBtn.textContent = '🎵'; }
-            else { bgMusic.play(); musicBtn.textContent = '🔇'; }
-            playing = !playing;
+            musicVisible = !musicVisible;
+            if (musicVisible) {
+                ytWrap.classList.add('show');
+                musicBtn.textContent = '🔇';
+            } else {
+                ytWrap.classList.remove('show');
+                musicBtn.textContent = '🎵';
+            }
+        });
+
+        closeYt.addEventListener('click', () => {
+            ytWrap.classList.remove('show');
+            musicBtn.textContent = '🎵';
+            musicVisible = false;
         });
     </script>
 </body>
 </html>
+
